@@ -4,29 +4,23 @@ INSERT INTO "biomes" ("name") VALUES
 ('Вода'),
 ('Лес');
 
--- Вставка данных в таблицу mutants
-INSERT INTO "mutants" ("name", "type", "hp", "biome_id") VALUES
-('Виверна', 'Драконид', 1000, 1),
-('Утопец', 'Трупоед', 300, 2),
-('Леший', 'Реликт', 800, 3);
-
--- Вставка данных в таблицу parts
-INSERT INTO "parts" ("name", "mutant_id") VALUES
-('Крыло виверны', 1),
-('Глаз утопца', 2),
-('Кора лешего', 3);
-
 -- Вставка данных в таблицу herbs
 INSERT INTO "herbs" ("name", "biome_id") VALUES
 ('Белый мирт', 1),
 ('Крушина', 2),
 ('Лесная хризантема', 3);
 
--- Вставка данных в таблицу alcohols
-INSERT INTO "alcohols" ("name") VALUES
-('Алкагест'),
-('Краснолюдский спирт'),
-('Махакамский спирт');
+-- Вставка данных в таблицу monsters
+INSERT INTO "monsters" ("name", "type", "hp", "biome_id") VALUES
+('Виверна', 'Драконид', 1000, 1),
+('Утопец', 'Трупоед', 300, 2),
+('Леший', 'Реликт', 800, 3);
+
+-- Вставка данных в таблицу parts
+INSERT INTO "parts" ("name", "monster_id") VALUES
+('Крыло виверны', 1),
+('Глаз утопца', 2),
+('Кора лешего', 3);
 
 -- Вставка данных в таблицу settlements
 INSERT INTO "settlements" ("name") VALUES
@@ -39,6 +33,12 @@ INSERT INTO "vendors" ("name", "set_id") VALUES
 ('Оливер', 1),
 ('Эльза', 2),
 ('Штепан', 3);
+
+-- Вставка данных в таблицу alcohols
+INSERT INTO "alcohols" ("name") VALUES
+('Алкагест'),
+('Краснолюдский спирт'),
+('Махакамский спирт');
 
 -- Вставка данных в таблицу trades
 INSERT INTO "trades" ("vendor_id", "alc_id", "cost") VALUES

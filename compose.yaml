@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: "Maxim"
       POSTGRES_PASSWORD: "12345"
     volumes:
-      - ./mapped:/var/lib/postgresql/data
+      #- ./mapped:/var/lib/postgresql/data
       - ./migrations:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
