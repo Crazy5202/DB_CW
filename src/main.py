@@ -1,7 +1,8 @@
 import streamlit as st
-from pages import potions, herbs, monsters, trades
+from pages import potion_tip, potions, herbs, monsters, trades
         
 TABLES = {
+    "Главная": potion_tip,
     "Зелья": potions,
     "Травы": herbs,
     "Монстры": monsters,
