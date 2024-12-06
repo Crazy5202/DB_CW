@@ -1,5 +1,5 @@
 import bcrypt
-from repositories.users import get_user_pwd
+from repositories.adm_users import get_user_pwd
 
 def hash_password(password):
     salt = bcrypt.gensalt()
@@ -15,6 +15,3 @@ def check_wrapper(username, password):
         return result[1]
     else:
         return 0
-     
-print(hash_password("123321"))
-print(hash_password("123"))   

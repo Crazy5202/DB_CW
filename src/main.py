@@ -1,16 +1,20 @@
 import streamlit as st
-from pages import potion_tip, potions, herbs, monsters, trades
+from pages import potion_tip, potions, herbs, monsters, trades, adm_users
 from services.password import check_wrapper
 
 if 'logged' not in st.session_state:
-    st.session_state['logged'] = 0
+    st.session_state['logged'] = 2
 
-USER_TABLES = {
+USER_TABLE = {
     "Главная": potion_tip,
     "Зелья": potions,
     "Травы": herbs,
     "Монстры": monsters,
     "Покупка спирта": trades
+}
+
+ADMIN_TABLE = {
+    "Пользователи": adm_users
 }
 
 def main():
@@ -22,7 +26,6 @@ def main():
         send = st.button("ВОЙТИ")
         if send:
             if username and password:
-                #st.session_state['logged'] = 1
                 check_res = check_wrapper(username, password)
                 if (check_res == 0):
                     st.write("Неверные данные!")
@@ -37,14 +40,16 @@ def main():
             st.session_state['logged'] = 0
             st.rerun()
         st.sidebar.title("Навигация")
-        page = st.sidebar.radio("Выберите таблицу", list(USER_TABLES.keys()))
-        USER_TABLES[page].main()
+        page = st.sidebar.radio("Выберите таблицу", list(USER_TABLE.keys()))
+        USER_TABLE[page].main()
     elif st.session_state['logged'] == 2:
         unlog = st.sidebar.button("ВЫЙТИ")
         if unlog:
             st.session_state['logged'] = 0
             st.rerun()
-        st.write("Тут будет админка!")
+        st.sidebar.title("Навигация")
+        page = st.sidebar.radio("Выберите таблицу", list(ADMIN_TABLE.keys()))
+        ADMIN_TABLE[page].main()
 
 if __name__ == "__main__":
     main()
