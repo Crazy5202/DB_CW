@@ -197,3 +197,12 @@ ALTER TABLE
     "potions" ADD CONSTRAINT "potions_alc_id_foreign" FOREIGN KEY("alc_id") REFERENCES "alcohols"("alc_id");
 ALTER TABLE
     "vendors" ADD CONSTRAINT "vendors_set_id_foreign" FOREIGN KEY("set_id") REFERENCES "settlements"("set_id");
+
+
+-- таблица пользователей
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    access_level INTEGER NOT NULL
+);

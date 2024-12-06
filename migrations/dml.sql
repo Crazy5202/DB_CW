@@ -59,3 +59,8 @@ INSERT INTO "potions" ("name", "effect", "duration", "toxicity", "charges", "her
 ('Ласточка', 'Восстановление здоровья', 180, 25, 3, 2, 1, 3),
 ('Гром', 'Увеличение урона', 300, 20, 2, 3, 2, 1),
 ('Черная кровь', 'Отравляет вампиров', 200, 30, 1, 1, 3, 2);
+
+--вставка админа и обычного пользователя
+INSERT INTO "users" ("username", "password_hash", "access_level") VALUES
+('admin', '$2b$12$c3cRJvUqtrBccaxtJaxue.uEIMvTh/NfS7l2frlG9pTlPXiWeUKh6', 2),
+('user', '$2b$12$coVsWDBegxfGYAHVqeUdkuCL/5myQm7HkxDO8RGeJxD.Zx5Jy9nlG', 1);
