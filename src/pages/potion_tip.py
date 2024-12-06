@@ -14,7 +14,9 @@ def main():
     button = st.button("Нажмите чтобы вывести результат!")
     if button:
         result = repositories.potion_tip.get(selected_potion)[0]
-        text = f"""Нужно растение {result[0]}, растущее в регионе {result[1]}.  \nНужна часть {result[2]} монстра {result[3]}, обитающего в регионе {result[4]}.  \nНужно купить {result[5]}, который можно купить у торговца {result[6]} в поселении {result[7]} за {result[8]} золотых."""
+        text = f"""Нужно растение {result[0]}, растущее в регионе {result[1]}.  
+        \nНужна часть {result[2]} монстра {result[3]}, обитающего в регионе {result[4]}.  
+        \nНужно купить {result[5]}, дешевле всего у торговца {result[6]} в поселении {result[7]} за {result[8]} золотых."""
         st.write(text)
         
 
