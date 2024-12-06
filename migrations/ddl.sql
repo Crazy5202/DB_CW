@@ -22,20 +22,20 @@ CREATE TABLE "herbs"(
 ALTER TABLE
     "herbs" ADD PRIMARY KEY("herb_id");
 
-COMMENT ON TABLE herbs IS 'Информация о растениях';
+COMMENT ON TABLE herbs IS 'Информация о травах';
 
-COMMENT ON COLUMN herbs.herb_id IS 'Уникальный идентификатор растения';
+COMMENT ON COLUMN herbs.herb_id IS 'Уникальный идентификатор травы';
 
-COMMENT ON COLUMN herbs.name IS 'Название растения';
+COMMENT ON COLUMN herbs.name IS 'Название травы';
 
-COMMENT ON COLUMN herbs.biome_id IS 'Идентификатор биома, в котором встречается растение';
+COMMENT ON COLUMN herbs.biome_id IS 'Идентификатор биома, в котором встречается трава';
 
 
 -- таблица с монстрами
 CREATE TABLE "monsters"(
     "monster_id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "type" VARCHAR(255) NOT NULL,
+    "xp" INTEGER NOT NULL,
     "hp" INTEGER NOT NULL,
     "biome_id" INTEGER NOT NULL
 );
@@ -48,7 +48,7 @@ COMMENT ON COLUMN monsters.monster_id IS 'Уникальный идентифи�
 
 COMMENT ON COLUMN monsters.name IS 'Название монстра';
 
-COMMENT ON COLUMN monsters.type IS 'Классификация монстра';
+COMMENT ON COLUMN monsters.xp IS 'Опыт за монстра';
 
 COMMENT ON COLUMN monsters.hp IS 'Количество ХП монстра';
 
@@ -171,7 +171,7 @@ COMMENT ON COLUMN potions.toxicity IS 'Токсичность зелья';
 
 COMMENT ON COLUMN potions.charges IS 'Число применений зелья';
 
-COMMENT ON COLUMN potions.herb_id IS 'Уникальный идентификатор растения';
+COMMENT ON COLUMN potions.herb_id IS 'Уникальный идентификатор травы';
 
 COMMENT ON COLUMN potions.part_id IS 'Уникальный идентификатор части монстра';
 

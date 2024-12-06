@@ -11,10 +11,10 @@ INSERT INTO "herbs" ("name", "biome_id") VALUES
 ('Лесная хризантема', 3);
 
 -- Вставка данных в таблицу monsters
-INSERT INTO "monsters" ("name", "type", "hp", "biome_id") VALUES
-('Виверна', 'Драконид', 1000, 1),
-('Утопец', 'Трупоед', 300, 2),
-('Леший', 'Реликт', 800, 3);
+INSERT INTO "monsters" ("name", "xp", "hp", "biome_id") VALUES
+('Виверна', 300, 1000, 1),
+('Утопец', 60, 300, 2),
+('Леший', 200, 800, 3);
 
 -- Вставка данных в таблицу parts
 INSERT INTO "parts" ("name", "monster_id") VALUES
