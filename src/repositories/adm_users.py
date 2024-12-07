@@ -108,3 +108,33 @@ def get_user_log():
         with conn.cursor() as cur:
             cur.execute(query)
             return DataFrame(cur.fetchall(), columns=["Добавленный пользователь", "Время добавления"])
+        
+def get_user_names():
+    print("Запрос к таблице пользователей...")
+    query = """select
+            id,
+            username
+        from
+            users
+        where
+            username != 'admin'
+    """
+    with psycopg2.connect(**DB_CONFIG) as conn:
+        with conn.cursor() as cur:
+            cur.execute(query)
+            return cur.fetchall()
+        
+def delete_user(username):
+    print("Удаление пользователя...")
+    with psycopg2.connect(**DB_CONFIG) as conn:
+        with conn.cursor() as cur:
+            try:
+                query = """
+                    DELETE FROM users
+                    WHERE username = %s
+                """
+                cur.execute(query, (username,))
+                conn.commit()
+                return True
+            except:
+                return False
