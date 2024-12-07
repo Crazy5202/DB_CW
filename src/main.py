@@ -5,7 +5,7 @@ from services.password import check_wrapper
 st.set_page_config(layout="wide")
 
 if 'logged' not in st.session_state:
-    st.session_state['logged'] = 2
+    st.session_state['logged'] = 0
 
 USER_TABLE = {
     "Главная": potion_tip,
@@ -48,9 +48,7 @@ def main():
         if unlog:
             st.session_state['logged'] = 0
             st.rerun()
-        st.sidebar.title("Навигация")
-        page = st.sidebar.radio("Выберите таблицу", list(ADMIN_TABLE.keys()))
-        ADMIN_TABLE[page].main()
+        adm_users.main()
 
 if __name__ == "__main__":
     main()

@@ -70,6 +70,7 @@ def init_trigger():
         CREATE TABLE IF NOT EXISTS log (
             id SERIAL PRIMARY KEY,
             added_username VARCHAR(255) NOT NULL,
+            action VARCHAR(255) NOT NULL,
             action_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     """
@@ -77,8 +78,17 @@ def init_trigger():
         CREATE OR REPLACE FUNCTION log_user_insert()
         RETURNS TRIGGER AS $$
         BEGIN
-            INSERT INTO log (added_username) VALUES (NEW.username);
+            INSERT INTO log (added_username, action) VALUES (NEW.username, 'Создан');
             RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+    """
+    create_function_query_2 = """
+        CREATE OR REPLACE FUNCTION log_user_delete()
+        RETURNS TRIGGER AS $$
+        BEGIN
+            INSERT INTO log (added_username, action) VALUES (OLD.username, 'Удалён');
+            RETURN OLD;
         END;
         $$ LANGUAGE plpgsql;
     """
@@ -88,6 +98,12 @@ def init_trigger():
         FOR EACH ROW
         EXECUTE FUNCTION log_user_insert();
     """
+    create_trigger_query_2 = """
+        CREATE TRIGGER after_user_delete
+        AFTER DELETE ON users
+        FOR EACH ROW
+        EXECUTE FUNCTION log_user_delete();
+    """
     with psycopg2.connect(**DB_CONFIG) as conn:
         conn.autocommit = True
         with conn.cursor() as cur:
@@ -96,18 +112,22 @@ def init_trigger():
 
             cur.execute(create_function_query)
 
+            cur.execute(create_function_query_2)
+
             cur.execute(create_trigger_query)
+
+            cur.execute(create_trigger_query_2)
     
 def get_user_log():
     print("Получение информации о действиях со списком пользователей...")
     query = """select
-            added_username, action_time 
+            added_username, action, action_time 
         from
             log"""
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             cur.execute(query)
-            return DataFrame(cur.fetchall(), columns=["Добавленный пользователь", "Время добавления"])
+            return DataFrame(cur.fetchall(), columns=["Пользователь", "Действие", "Время добавления"])
         
 def get_user_names():
     print("Запрос к таблице пользователей...")

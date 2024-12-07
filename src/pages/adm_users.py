@@ -25,6 +25,16 @@ def main():
     access_level = st.radio("Уровень доступа:", [1, 2])
     add_user_btn = st.button("Добавить пользователя")
 
+    if add_user_btn:
+        if username and password:
+            add_status = add_user(username, hash_password(password), access_level)
+            if (add_status == False):
+                st.write("Ошибка добавления! Проверьте имя пользователя на уникальность!")
+            else:
+                st.rerun()
+        else:
+            st.write("Все поля должны быть заполнены!")
+
     st.title("Удаление пользователей")
     user_dict = get_users_for_delete()
     selected_user = st.selectbox("Выберите удаляемого пользователя:", user_dict.keys())
@@ -36,15 +46,7 @@ def main():
         else:
             st.write("На текущий момент нет пользователей для удаления")
 
-    if add_user_btn:
-        if username and password:
-            add_status = add_user(username, hash_password(password), access_level)
-            if (add_status == False):
-                st.write("Ошибка добавления! Проверьте имя пользователя на уникальность!")
-            else:
-                st.rerun()
-        else:
-            st.write("Все поля должны быть заполнены!")
+    
 
     if st.session_state['trigger'] == 0:
         trigger_button = st.button("Включить триггер")
@@ -53,7 +55,7 @@ def main():
             st.session_state['trigger'] = 1
             st.rerun()
     else:
-        st.title("История добавлений для пользователей:")
+        st.title("История изменений списка пользователей:")
         st.dataframe(get_user_log(), use_container_width=True, hide_index=True)
 
 
