@@ -8,8 +8,37 @@ def get_user_pwd(username):
         with conn.cursor() as cur:
             cur.execute("SELECT password_hash, access_level FROM users WHERE username = %s", (username,))
             return cur.fetchone()
+
+def get_users():
+    print("Получение информации о всех пользователях...")
+    query = """select
+            username,
+            password_hash,
+            access_level
+        from
+            users"""
+    with psycopg2.connect(**DB_CONFIG) as conn:
+        with conn.cursor() as cur:
+            cur.execute(query)
+            return DataFrame(cur.fetchall(), columns = ["Логин", "Хэш пароля", "Уровень доступа (1-2)"])
         
+def add_user(username, hashed_password, access_level):
+    print("Добавление пользователя...")
+    with psycopg2.connect(**DB_CONFIG) as conn:
+        with conn.cursor() as cur:
+            try:
+                query = """
+                    INSERT INTO users (username, password_hash, access_level)
+                    VALUES (%s, %s, %s)
+                """
+                cur.execute(query, (username, hashed_password, access_level))
+                conn.commit()
+                return True
+            except:
+                return False
+
 def check_exist():
+    print("Проверка на существование лог-таблицы...")
     query1 = """select
         exists(
             select
@@ -34,21 +63,9 @@ def check_exist():
             cur.execute(query1)
             res = cur.fetchone()[0]
             return res
-
-def get_users():
-    print("Получение информации о всех пользователях...")
-    query = """select
-            username,
-            password_hash,
-            access_level
-        from
-            users"""
-    with psycopg2.connect(**DB_CONFIG) as conn:
-        with conn.cursor() as cur:
-            cur.execute(query)
-            return DataFrame(cur.fetchall(), columns = ["Логин", "Хэш пароля", "Уровень доступа (1-2)"])
         
 def init_trigger():
+    print("Создание триггера...")
     create_log_query = """
         CREATE TABLE IF NOT EXISTS log (
             id SERIAL PRIMARY KEY,

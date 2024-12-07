@@ -2,6 +2,8 @@ import streamlit as st
 from pages import potion_tip, potions, herbs, monsters, trades, adm_users
 from services.password import check_wrapper
 
+#st.set_page_config(layout="wide")
+
 if 'logged' not in st.session_state:
     st.session_state['logged'] = 2
 
@@ -18,7 +20,6 @@ ADMIN_TABLE = {
 }
 
 def main():
-    st.set_page_config(layout="wide")
     if st.session_state['logged'] == 0:
         st.write("Войдите в аккаунт!")
         username = st.text_input("ЛОГИН:")
