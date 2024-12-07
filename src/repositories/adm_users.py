@@ -69,7 +69,7 @@ def init_trigger():
     create_log_query = """
         CREATE TABLE IF NOT EXISTS log (
             id SERIAL PRIMARY KEY,
-            user_id INTEGER NOT NULL,
+            added_username VARCHAR(255) NOT NULL,
             action_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     """
@@ -77,7 +77,7 @@ def init_trigger():
         CREATE OR REPLACE FUNCTION log_user_insert()
         RETURNS TRIGGER AS $$
         BEGIN
-            INSERT INTO log (user_id) VALUES (NEW.id);
+            INSERT INTO log (added_username) VALUES (NEW.username);
             RETURN NEW;
         END;
         $$ LANGUAGE plpgsql;
@@ -101,10 +101,10 @@ def init_trigger():
 def get_user_log():
     print("Получение информации о действиях со списком пользователей...")
     query = """select
-            *
+            added_username, action_time 
         from
             log"""
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             cur.execute(query)
-            return DataFrame(cur.fetchall())
+            return DataFrame(cur.fetchall(), columns=["Добавленный пользователь", "Время добавления"])
