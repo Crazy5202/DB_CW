@@ -47,17 +47,6 @@ def check_exist():
                 pg_class
             where
                 relname = 'log')"""
-    query2 = """select
-        exists(
-        select
-            *
-        from
-            information_schema.tables
-        where
-            table_schema = 'public'
-            and 
-        table_name = 'log'
-    )"""
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             cur.execute(query1)
