@@ -11,7 +11,7 @@ if per == True:
     st.session_state['trigger'] = 1
 
 def get_users_for_delete() -> dict[str, str]:
-    print("Получение имён пользователей...")
+    #print("Получение имён пользователей...")
     users = get_user_names()
     return {user[1]: user[0] for user in users}
 

@@ -3,7 +3,7 @@ import psycopg2
 from pandas import DataFrame
 
 def get_potion_names():
-    print("Запрос к таблице зелий...")
+    #print("Запрос к таблице зелий...")
     query = """select
             id,
             name
@@ -15,7 +15,7 @@ def get_potion_names():
             return cur.fetchall()
 
 def get(potion):
-    print("Получение всей информации по зелью...")
+    #print("Получение всей информации по зелью...")
     query = f"""with get_herbs as (
         select
                     herb_id,

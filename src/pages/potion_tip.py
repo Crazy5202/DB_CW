@@ -3,7 +3,7 @@ import repositories.potion_tip
 
 @st.cache_data
 def get_products() -> dict[str, str]:
-    print("Получение названий зелий...")
+    #print("Получение названий зелий...")
     potions = repositories.potion_tip.get_potion_names()
     return {potion[1]: potion[0] for potion in potions}
 

@@ -3,14 +3,14 @@ import psycopg2
 from pandas import DataFrame
 
 def get_user_pwd(username):
-    print("Получение информации о пароле пользователя...")
+    #print("Получение информации о пароле пользователя...")
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             cur.execute("SELECT password_hash, access_level FROM users WHERE username = %s", (username,))
             return cur.fetchone()
 
 def get_users():
-    print("Получение информации о всех пользователях...")
+    #print("Получение информации о всех пользователях...")
     query = """select
             username,
             password_hash,
@@ -23,7 +23,7 @@ def get_users():
             return DataFrame(cur.fetchall(), columns = ["Логин", "Хэш пароля", "Уровень доступа (1-2)"])
         
 def add_user(username, hashed_password, access_level):
-    print("Добавление пользователя...")
+    #print("Добавление пользователя...")
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             try:
@@ -38,7 +38,7 @@ def add_user(username, hashed_password, access_level):
                 return False
 
 def check_exist():
-    print("Проверка на существование лог-таблицы...")
+    #print("Проверка на существование лог-таблицы...")
     query1 = """select
         exists(
             select
@@ -54,7 +54,7 @@ def check_exist():
             return res
         
 def init_trigger():
-    print("Создание триггера...")
+    #print("Создание триггера...")
     create_log_query = """
         CREATE TABLE IF NOT EXISTS log (
             id SERIAL PRIMARY KEY,
@@ -108,7 +108,7 @@ def init_trigger():
             cur.execute(create_trigger_query_2)
     
 def get_user_log():
-    print("Получение информации о действиях со списком пользователей...")
+    #print("Получение информации о действиях со списком пользователей...")
     query = """select
             username_change, action, action_time 
         from
@@ -119,7 +119,7 @@ def get_user_log():
             return DataFrame(cur.fetchall(), columns=["Пользователь", "Действие", "Время добавления"])
         
 def get_user_names():
-    print("Запрос к таблице пользователей...")
+    #print("Запрос к таблице пользователей...")
     query = """select
             id,
             username
@@ -134,7 +134,7 @@ def get_user_names():
             return cur.fetchall()
         
 def delete_user(username):
-    print("Удаление пользователя...")
+    #print("Удаление пользователя...")
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             try:

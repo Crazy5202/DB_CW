@@ -3,7 +3,7 @@ import psycopg2
 from pandas import DataFrame
 
 def get():
-    print("Получение информации о зельях...")
+    #print("Получение информации о зельях...")
     query = """select
             potions.name,
             effect,

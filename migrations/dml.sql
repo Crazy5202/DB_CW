@@ -62,5 +62,5 @@ INSERT INTO "potions" ("name", "effect", "duration", "toxicity", "charges", "her
 
 --вставка админа и обычного пользователя
 INSERT INTO "users" ("username", "password_hash", "access_level") VALUES
-('admin', '$2b$12$c3cRJvUqtrBccaxtJaxue.uEIMvTh/NfS7l2frlG9pTlPXiWeUKh6', 2),
-('user', '$2b$12$coVsWDBegxfGYAHVqeUdkuCL/5myQm7HkxDO8RGeJxD.Zx5Jy9nlG', 1);
+('admin', '$2b$12$804NG.bhwQkDVrvNytO8.ua9C6gJFUYQbeMLBASE2ig7XL0lEVqTK', 2),
+('user', '$2b$12$804NG.bhwQkDVrvNytO8.ua9C6gJFUYQbeMLBASE2ig7XL0lEVqTK', 1);

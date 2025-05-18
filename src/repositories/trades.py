@@ -3,7 +3,7 @@ import psycopg2
 from pandas import DataFrame
 
 def get():
-    print("Получение информации о продаже спирта...")
+    #print("Получение информации о продаже спирта...")
     query = """select
             alcohols.name as alc_name,
             cost,

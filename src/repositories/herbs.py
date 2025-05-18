@@ -3,7 +3,7 @@ import psycopg2
 from pandas import DataFrame
 
 def get():
-    print("Получение информации о травах...")
+    #print("Получение информации о травах...")
     query = """select
             herbs.name as herb,
             biomes.name as biome
